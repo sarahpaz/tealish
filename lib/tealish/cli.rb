@@ -17,17 +17,18 @@ class Tealish::CLI
     case flavor_option
       when 1
         puts "Fruity teas"
+        url = "https://tealish.com/collections/fruity"
+        Tealish::Scraper.scrape_flavors(url)
       when 2
-        puts "Fruity teas"
+        puts "Spicy teas"
       when 3
-        puts "Fruity teas"
+        puts "Floral teas"
       when 4
-        puts "Fruity teas"
+        puts "Minty teas"
       when "exit"
         puts "Thanks for visiting. See you again soon!"
       else
         puts "Sorry, that wasn't a valid option. Please enter a number between 1 - 4."
-        # they didn't pyt in a correct input
     end
   end
 end
