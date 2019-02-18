@@ -1,0 +1,3 @@
+class Tealish::Tea
+
+end
