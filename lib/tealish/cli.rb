@@ -1,15 +1,19 @@
 class Tealish::CLI
   def start
-    puts "     _______ _      "
-    puts "     \\      /_]    "
-    puts "      \\___ /       "
-    puts "Welcome to Tealish!"
+    welcome
     flavor_menu
     select_flavor
   end
 
+  def welcome
+    puts "     _______ _      "
+    puts "     \\      /_]    "
+    puts "      \\___ /       "
+    puts "Welcome to Tealish!"
+  end
+
   def flavor_menu
-    puts "Here are our delicious flavor options:"
+    puts "Here are our delicious tea flavor options:"
     puts <<~DOC
       1. Fruity
       2. Spicy
@@ -25,15 +29,19 @@ class Tealish::CLI
       input = gets.strip.downcase
       case input
       when "1"
-        puts "fruity teas"
+        puts "Here is our fruity tea collection:"
+        url = "https://tealish.com/collections/fruity"
+        Tealish::Scraper.scrape_teas(url)
+    
       when "2"
-        puts "spicy teas"
+        puts "Here is our spicy tea collection:"
+
       when "3"
-        puts "floral teas"
+        puts "Here is our floral tea collection:"
       when "4"
-        puts "minty teas"
+        puts "Here is our minty tea collection:"
       when "exit"
-        puts "Thanks for visiting Tealish. See you again soon!"
+        puts "Thanks for visiting. See you again soon!"
       when "menu"
         flavor_menu
       else
