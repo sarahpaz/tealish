@@ -1,6 +1,6 @@
-require "tealish/version"
+require "nokogirl"
+require "open-uri"
+require "pry"
 
-module Tealish
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "tealish/version"
+require_relative "tealish/cli"
