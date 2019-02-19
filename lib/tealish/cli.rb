@@ -31,8 +31,7 @@ class Tealish::CLI
       when "1"
         puts "Here is our fruity tea collection:"
         url = "https://tealish.com/collections/fruity"
-        Tealish::Scraper.scrape_teas(url)
-    
+        Tealish::Scraper.scrape_tea(url)
       when "2"
         puts "Here is our spicy tea collection:"
 
