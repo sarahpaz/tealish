@@ -1,18 +1,20 @@
 class Tealish::Scraper
-  attr_accessor
 
-  def self.scrape_teas(url)
+  def self.scrape_tea(url)
     website = Nokogiri::HTML(open(url))
-    tea_options = []
+    tea = []
 
-    website.css("figure").each do |tea|
-      tea_name = tea.css("div.product-title").text
-      tea_type = tea.css("div.product-title span").text
-      tea_price = tea.css('span.money').text
+    website.css("figcaption") do |tea|
+      name = tea.css("a.title").text
+      type = tea.css("a.title span").text
+      price = tea.css("span.price span.money").text
+      url = tea.css("a.title").attribute("href").value
 
-      tea_options << {tea_name: tea_name, tea_type: tea_type, tea_price: tea_price}
+      tea_details << {name: name, type: type, price: price, url: url}
+
+      tea << tea_details
     end
-    tea_options
+    tea
   end
 
 end
