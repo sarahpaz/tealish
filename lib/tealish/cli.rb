@@ -15,9 +15,9 @@ class Tealish::CLI
   def menu
     puts "\nHow would you like to shop today?"
     puts <<~DOC
-      1. Flavour
-      2. Benefit
-      3. Mood
+      1. Fruity
+      2. Spicy
+      3. Minty
     DOC
   end
 
@@ -28,13 +28,14 @@ class Tealish::CLI
       input = gets.strip
       case input
       when "1"
-        puts "Flavor"
-        url = "https://tealish.com/collections/flavour"
-        Tealish::Scraper.scrape_flavors(url)
+        puts "Fruity"
+        url = "https://tealish.com/collections/fruity"
+        Tealish::Scraper.scrape_teas(url)
+        
       when "2"
-        puts "Benefit"
+        puts "Spicy"
       when "3"
-        puts "Mood"
+        puts "Minty"
       when "exit"
         puts "Thanks for visiting. See you again soon!"
       when "menu"
