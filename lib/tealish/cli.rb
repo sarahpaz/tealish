@@ -1,8 +1,8 @@
 class Tealish::CLI
   def start
     welcome
-    flavor_menu
-    select_flavor
+    menu
+    options
   end
 
   def welcome
@@ -12,39 +12,33 @@ class Tealish::CLI
     puts "Welcome to Tealish!"
   end
 
-  def flavor_menu
-    puts "Here are our delicious tea flavor options:"
+  def menu
+    puts "\nHow would you like to shop today?"
     puts <<~DOC
-      1. Fruity
-      2. Spicy
-      3. Floral
-      4. Minty
+      1. Flavour
+      2. Benefit
+      3. Mood
     DOC
   end
 
-  def select_flavor
+  def options
     input = nil
     while input != "exit"
-      puts "\nEnter the number for the flavor collection you'd like to view, type 'menu' to go back to the flavor menu, or type 'exit'."
-      input = gets.strip.downcase
+      puts "\nEnter a number between 1 - 3 to select the category, or enter 'exit'."
+      input = gets.strip
       case input
       when "1"
-        puts "Here is our fruity tea collection:"
-        url = "https://tealish.com/collections/fruity"
-        Tealish::Scraper.scrape_tea(url)
+        puts "Flavor"
       when "2"
-        puts "Here is our spicy tea collection:"
-
+        puts "Benefit"
       when "3"
-        puts "Here is our floral tea collection:"
-      when "4"
-        puts "Here is our minty tea collection:"
+        puts "Mood"
       when "exit"
         puts "Thanks for visiting. See you again soon!"
       when "menu"
-        flavor_menu
+        menu
       else
-        puts "Sorry, that wasn't a valid option. Please enter a number between 1 - 4, 'menu' or 'exit'."
+        puts "Sorry, that option is not valid. Please enter a number between 1 - 3, or type 'exit."
       end
     end
   end
