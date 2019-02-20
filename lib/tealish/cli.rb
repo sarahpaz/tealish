@@ -17,7 +17,6 @@ class Tealish::CLI
     puts "1. Fruity".green
     puts "2. Spicy".red
     puts "3. Floral".magenta
-
   end
 
   def options
@@ -49,32 +48,30 @@ class Tealish::CLI
 
   def scrape_fruity_teas
     url = "https://tealish.com/collections/fruity"
-    tea_options = Tealish::Scraper.scrape_teas(url)
-    tea_options.each.with_index(1) do |tea, i|
-      puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
-      puts "https://tealish.com#{tea.url}"
-    end
+    @teas = Tealish::Scraper.scrape_teas(url)
+    list_options
   end
 
   def scrape_spicy_teas
     url = "https://tealish.com/collections/spicy"
-    tea_options = Tealish::Scraper.scrape_teas(url)
-    tea_options.each.with_index(1) do |tea, i|
-      puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
-      puts "https://tealish.com#{tea.url}"
-    end
+    @teas = Tealish::Scraper.scrape_teas(url)
+    list_options
   end
 
   def scrape_floral_teas
     url = "https://tealish.com/collections/floral"
-    tea_options = Tealish::Scraper.scrape_teas(url)
-    tea_options.each.with_index(1) do |tea, i|
-      puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
-      puts "https://tealish.com#{tea.url}"
-    end
+    @teas = Tealish::Scraper.scrape_teas(url)
+    list_options
   end
 
   def input_options
     puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
+  end
+
+  def list_options
+    @teas.each.with_index(1) do |tea, i|
+      puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
+      puts "https://tealish.com#{tea.url}"
+    end
   end
 end

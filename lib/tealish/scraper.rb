@@ -2,7 +2,7 @@ class Tealish::Scraper
 
   def self.scrape_teas(url)
      website = Nokogiri::HTML(open(url))
-     teas = []
+     @teas = []
 
      website.css("figcaption").each do |tea|
        new_tea = Tealish::Tea.new
@@ -10,9 +10,9 @@ class Tealish::Scraper
        new_tea.type = tea.css("div.product-title a.title span").text
        new_tea.price = tea.css("span.price span.money").text
        new_tea.url = tea.css("a").attribute("href").text
-       teas << new_tea
+       @teas << new_tea
      end
-     teas
+     @teas
 
    end
 
