@@ -28,11 +28,11 @@ class Tealish::CLI
       input = gets.strip
       case input
       when "1"
-        puts "Fruity"
+        puts "Here are our fruity tea options:"
         url = "https://tealish.com/collections/fruity"
         tea_options = Tealish::Scraper.scrape_teas(url)
-        tea_options.each.with_index do |tea|
-          puts tea.name
+        tea_options.each_with_index do |tea|
+          puts "#{tea.name} - #{tea.type} - #{tea.price}"
         end
       when "2"
         puts "Spicy"

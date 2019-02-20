@@ -11,7 +11,7 @@ class Tealish::Scraper
        new_tea.price = tea.css("span.price span.money").text
 
        teas << new_tea
-    
+
      end
      teas
 
