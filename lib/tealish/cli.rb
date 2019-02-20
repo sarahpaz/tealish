@@ -1,11 +1,11 @@
 class Tealish::CLI
   def start
-    welcome
+    greeting
     menu
     options
   end
 
-  def welcome
+  def greeting
     puts "     _______ _      ".cyan
     puts "     \\      /_]    ".cyan
     puts "      \\___ /       ".cyan
@@ -28,12 +28,16 @@ class Tealish::CLI
       when "1"
         puts "*-*-*     Here are our fruity tea options:     *-*-*".green
         scrape_fruity_teas
+        list_options
+        choose_tea
       when "2"
         puts "*-*-*     Here are our spicy tea options:     *-*-*".red
         scrape_spicy_teas
+        list_options
       when "3"
         puts "*-*-*     Here are our floral tea options:     *-*-*".magenta
         scrape_floral_teas
+        list_options
       when "exit"
         puts "Thank you for visiting Tealish! We hope to see you again soon!"
       when "menu"
@@ -48,22 +52,16 @@ class Tealish::CLI
   def scrape_fruity_teas
     url = "https://tealish.com/collections/fruity"
     @teas = Tealish::Scraper.scrape_teas(url)
-    list_options
-    choose_tea
   end
 
   def scrape_spicy_teas
     url = "https://tealish.com/collections/spicy"
     @teas = Tealish::Scraper.scrape_teas(url)
-    list_options
-    choose_tea
   end
 
   def scrape_floral_teas
     url = "https://tealish.com/collections/floral"
     @teas = Tealish::Scraper.scrape_teas(url)
-    list_options
-    choose_tea
   end
 
   def list_options
@@ -74,7 +72,15 @@ class Tealish::CLI
   end
 
   def choose_tea
-    puts "\nEnter a number to view more details."
-    puts "You can also type 'menu' to return to the flavor options, or 'exit'."
+    puts "\nEnter a number to select a tea:"
+    input = gets.strip.to_i
+    if input.between?(1, @teas.length)
+      puts "valid option"
+      choose_tea
+    else
+      puts "\nSorry, that option is not valid."
+      choose_tea
+      options
+    end
   end
 end
