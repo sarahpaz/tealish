@@ -35,7 +35,7 @@ class Tealish::CLI
         puts "*-*-*     Here are our floral tea options:     *-*-*".magenta
         scrape_floral_teas
       when "exit"
-        puts "Thanks for visiting. See you again soon!"
+        puts "Thank you for visiting Tealish! We hope to see you again soon!"
       when "menu"
         menu
       else
@@ -49,18 +49,21 @@ class Tealish::CLI
     url = "https://tealish.com/collections/fruity"
     @teas = Tealish::Scraper.scrape_teas(url)
     list_options
+    choose_tea
   end
 
   def scrape_spicy_teas
     url = "https://tealish.com/collections/spicy"
     @teas = Tealish::Scraper.scrape_teas(url)
     list_options
+    choose_tea
   end
 
   def scrape_floral_teas
     url = "https://tealish.com/collections/floral"
     @teas = Tealish::Scraper.scrape_teas(url)
     list_options
+    choose_tea
   end
 
   def list_options
@@ -68,5 +71,10 @@ class Tealish::CLI
       puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
       puts "https://tealish.com#{tea.url}"
     end
+  end
+
+  def choose_tea
+    puts "\nEnter a number to view more details."
+    puts "You can also type 'menu' to return to the flavor options, or 'exit'."
   end
 end
