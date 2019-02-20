@@ -29,8 +29,8 @@ class Tealish::CLI
         puts "*-*-*     Here are our fruity tea options:     *-*-*".green
         url = "https://tealish.com/collections/fruity"
         tea_options = Tealish::Scraper.scrape_teas(url)
-        tea_options.each_with_index do |tea, i|
-          puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+        tea_options.each.with_index(1) do |tea, i|
+          puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
           puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
@@ -38,8 +38,8 @@ class Tealish::CLI
         puts "*-*-*     Here are our spicy tea options:     *-*-*".red
         url = "https://tealish.com/collections/spicy"
         tea_options = Tealish::Scraper.scrape_teas(url)
-        tea_options.each_with_index do |tea, i|
-          puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+        tea_options.each.with_index(1) do |tea, i|
+          puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
           puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
@@ -47,8 +47,8 @@ class Tealish::CLI
         puts "*-*-*     Here are our floral tea options:     *-*-*".magenta
         url = "https://tealish.com/collections/floral"
         tea_options = Tealish::Scraper.scrape_teas(url)
-        tea_options.each_with_index do |tea, i|
-          puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+        tea_options.each.with_index(1) do |tea, i|
+          puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
           puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
