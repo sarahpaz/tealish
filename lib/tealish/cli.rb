@@ -13,7 +13,8 @@ class Tealish::CLI
   end
 
   def menu
-    puts "\nHow would you like to shop today?"
+    puts "\nWhich flavor would you like to shop by today?"
+    puts "Please enter a number between 1-3 to view the flavors tea collection."
     puts "1. Fruity".green
     puts "2. Spicy".red
     puts "3. Floral".magenta
