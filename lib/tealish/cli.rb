@@ -30,8 +30,10 @@ class Tealish::CLI
       when "1"
         puts "Fruity"
         url = "https://tealish.com/collections/fruity"
-        Tealish::Scraper.scrape_teas(url)
-        
+        tea_options = Tealish::Scraper.scrape_teas(url)
+        tea_options.each.with_index do |tea|
+          puts tea.name
+        end
       when "2"
         puts "Spicy"
       when "3"
