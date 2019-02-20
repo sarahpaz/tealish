@@ -9,9 +9,8 @@ class Tealish::Scraper
        new_tea.name = tea.css("div.product-title a.title").children[0].text
        new_tea.type = tea.css("div.product-title a.title span").text
        new_tea.price = tea.css("span.price span.money").text
-
+       new_tea.url = tea.css("a").attribute("href").text
        teas << new_tea
-
      end
      teas
 

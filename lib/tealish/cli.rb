@@ -31,6 +31,7 @@ class Tealish::CLI
         tea_options = Tealish::Scraper.scrape_teas(url)
         tea_options.each_with_index do |tea, i|
           puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+          puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
       when "2"
@@ -39,6 +40,7 @@ class Tealish::CLI
         tea_options = Tealish::Scraper.scrape_teas(url)
         tea_options.each_with_index do |tea, i|
           puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+          puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
       when "3"
@@ -47,6 +49,7 @@ class Tealish::CLI
         tea_options = Tealish::Scraper.scrape_teas(url)
         tea_options.each_with_index do |tea, i|
           puts "#{i + 1}. #{tea.name} - #{tea.type} - #{tea.price}"
+          puts "https://tealish.com#{tea.url}"
         end
         puts "\nEnter a number for more details, 'menu' to return to the flavor menu, or 'exit'."
       when "exit"
@@ -57,9 +60,5 @@ class Tealish::CLI
         puts "Sorry, that option is not valid. Please enter a number between 1 - 3, or type 'exit."
       end
     end
-  end
-
-  def more_details
-    puts ""
   end
 end
