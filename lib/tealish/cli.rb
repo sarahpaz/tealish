@@ -29,6 +29,8 @@ class Tealish::CLI
       case input
       when "1"
         puts "Flavor"
+        url = "https://tealish.com/collections/flavour"
+        Tealish::Scraper.scrape_flavors(url)
       when "2"
         puts "Benefit"
       when "3"

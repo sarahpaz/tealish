@@ -1,20 +1,11 @@
 class Tealish::Scraper
 
-  def self.scrape_tea(url)
+  def self.scrape_flavors(url)
     website = Nokogiri::HTML(open(url))
-    teas = []
+    nav = website.css("div.nav-container")
 
-    website.css("figure").each do |tea|
-      name = website.css("div.product-title a.title").text
-      type = website.css("div.product-title a.title span").text
-      price = website.css("span.price span.money").text
-
-      item_detail = {name: name, type: type, price: price}
-
-      teas << item_detail
-    end
-
-    teas
+    flavor_name = nav.css("a").text
+    binding.pry
   end
 
 end
