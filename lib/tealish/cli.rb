@@ -14,8 +14,8 @@ class Tealish::CLI
   end
 
   def menu
-    puts "\nPlease enter a number between 1-3 to view the flavors tea collection."
-    puts "1. Fruity".green
+    puts "\nEnter a number to view the flavor collection:"
+    puts "1. Fruity".cyan
     puts "2. Spicy".red
     puts "3. Floral".magenta
   end
@@ -26,10 +26,10 @@ class Tealish::CLI
       input = gets.strip
       case input
       when "1"
-        puts "*-*-*     Here are our fruity tea options:     *-*-*".green
+        puts "*-*-*     Here are our fruity tea options:     *-*-*".cyan
         scrape_fruity_teas
-        list_options
-        choose_tea
+        list_tea_options
+        select_a_tea
       when "2"
         puts "*-*-*     Here are our spicy tea options:     *-*-*".red
         scrape_spicy_teas
@@ -64,19 +64,26 @@ class Tealish::CLI
     @teas = Tealish::Scraper.scrape_teas(url)
   end
 
-  def list_options
-    @teas.each.with_index(1) do |tea, i|
-      puts "#{i}. #{tea.name} - #{tea.type} - #{tea.price}"
+  def list_tea_options
+    @teas.each.with_index(1) do |tea, index|
+      puts "#{index}. #{tea.name} - #{tea.type} - #{tea.price}"
       puts "https://tealish.com#{tea.url}"
     end
   end
 
-  def choose_tea
+  def select_a_tea
     puts "\nEnter a number to select a tea:"
     input = gets.strip.to_i
     if input.between?(1, @teas.length)
-      puts "valid option"
-      choose_tea
+      selected_tea = @teas[input - 1]
+      puts "#{selected_tea.name} - #{selected_tea.type} - #{selected_tea.price}"
+      puts "https://tealish.com#{selected_tea.url}"
+      #description
+      puts "\nDESCRIPTION:"
+      puts"Drinking tea equals instant relaxation. Seriously, take a moment for yourself to make a cup, you’ll see how it relieves tension and refreshes your spirit. This wellness tea contains tulsi, an ancient herb that helps reduce stress and instil a sense of inner peace and calm. So drink up and feel your stress melt away."
+      #ingredients
+      puts "\nINGREDIENTS:"
+      puts "tulsi herb, apple bits, pear bits, red currants, ginger, rooibos, cinnamon, sunflower blossoms, natural flavouring, pineapple bits."
     else
       puts "\nSorry, that option is not valid."
       choose_tea
