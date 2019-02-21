@@ -3,6 +3,7 @@ class Tealish::CLI
     greeting
     menu
     options
+
   end
 
   def greeting
@@ -33,11 +34,13 @@ class Tealish::CLI
       when "2"
         puts "*-*-*     Here are our spicy tea options:     *-*-*".red
         scrape_spicy_teas
-        list_options
+        list_tea_options
+        select_a_tea
       when "3"
         puts "*-*-*     Here are our floral tea options:     *-*-*".magenta
         scrape_floral_teas
-        list_options
+        list_tea_options
+        select_a_tea
       when "exit"
         puts "Thank you for visiting Tealish! We hope to see you again soon!"
       when "menu"
@@ -76,18 +79,25 @@ class Tealish::CLI
     input = gets.strip.to_i
     if input.between?(1, @teas.length)
       selected_tea = @teas[input - 1]
-      puts "#{selected_tea.name} - #{selected_tea.type} - #{selected_tea.price}"
+      puts "#{selected_tea.name} - #{selected_tea.type} - #{selected_tea.price}".green
       puts "https://tealish.com#{selected_tea.url}"
       #description
-      puts "\nDESCRIPTION:"
+      puts "\nDESCRIPTION:".green
       puts"Drinking tea equals instant relaxation. Seriously, take a moment for yourself to make a cup, you’ll see how it relieves tension and refreshes your spirit. This wellness tea contains tulsi, an ancient herb that helps reduce stress and instil a sense of inner peace and calm. So drink up and feel your stress melt away."
       #ingredients
-      puts "\nINGREDIENTS:"
+      puts "\nINGREDIENTS:".green
       puts "tulsi herb, apple bits, pear bits, red currants, ginger, rooibos, cinnamon, sunflower blossoms, natural flavouring, pineapple bits."
+      menu
     else
       puts "\nSorry, that option is not valid."
       choose_tea
       options
     end
+  end
+
+  def scrape_tea_details(tea)
+    url = "https://tealish.com#{selected_tea.url}"
+    Tealish::Scraper.scrape_tea_details(tea)
+    binding.pry
   end
 end

@@ -13,7 +13,10 @@ class Tealish::Scraper
        @teas << new_tea
      end
      @teas
-
    end
 
+  #  def self.scrape_tea_details(tea)
+  #    website = Nokogiri::HTML(open(tea.url))
+  #    binding.pry
+  #  end
 end
