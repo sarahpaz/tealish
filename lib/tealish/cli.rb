@@ -82,6 +82,8 @@ class Tealish::CLI
       puts "#{selected_tea.name} - #{selected_tea.type} - #{selected_tea.price}".green
       puts "https://tealish.com#{selected_tea.url}"
       #description
+      # scrape_tea_details(selected_tea)
+      # binding.pry
       puts "\nDESCRIPTION:".green
       puts"Drinking tea equals instant relaxation. Seriously, take a moment for yourself to make a cup, you’ll see how it relieves tension and refreshes your spirit. This wellness tea contains tulsi, an ancient herb that helps reduce stress and instil a sense of inner peace and calm. So drink up and feel your stress melt away."
       #ingredients
@@ -95,9 +97,10 @@ class Tealish::CLI
     end
   end
 
-  def scrape_tea_details(tea)
+  def scrape_tea_details(selected_tea)
     url = "https://tealish.com#{selected_tea.url}"
-    Tealish::Scraper.scrape_tea_details(tea)
+    Tealish::Scraper.scrape_tea_details(selected_tea)
+    puts "hello"
     binding.pry
   end
 end
