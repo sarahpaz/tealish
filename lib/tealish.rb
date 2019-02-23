@@ -2,6 +2,7 @@ require "nokogiri"
 require "open-uri"
 require "pry"
 require "colorize"
+require "artii"
 
 require_relative "tealish/version"
 require_relative "tealish/cli"

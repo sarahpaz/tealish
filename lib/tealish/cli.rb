@@ -1,106 +1,106 @@
 class Tealish::CLI
   def start
-    greeting
+    welcome 
+    flavor_list
     menu
-    options
-
   end
 
-  def greeting
-    puts "     _______ _      ".cyan
-    puts "     \\      /_]    ".cyan
-    puts "      \\___ /       ".cyan
+  def welcome
+    a = Artii::Base.new :font => 'slant'
+    puts a.asciify('Tealish!').cyan
     puts "Welcome to Tealish!"
-    puts "Which flavor would you like to shop by today?"
+  end 
+
+  def flavor_list
+    puts "Let's start by selecting a flavor collection."
+    puts "1. Fruity".cyan
+    puts "2. Spicy".cyan
+    puts "3. Floral".cyan
   end
 
   def menu
-    puts "\nEnter a number to view the flavor collection:"
-    puts "1. Fruity".cyan
-    puts "2. Spicy".red
-    puts "3. Floral".magenta
-  end
-
-  def options
+    puts "\nEnter the number of the flavor collection you would like to view:"
     input = nil
-    while input != "exit"
-      input = gets.strip
-      case input
-      when "1"
-        puts "*-*-*     Here are our fruity tea options:     *-*-*".cyan
-        scrape_fruity_teas
-        list_tea_options
-        select_a_tea
-      when "2"
-        puts "*-*-*     Here are our spicy tea options:     *-*-*".red
-        scrape_spicy_teas
-        list_tea_options
-        select_a_tea
-      when "3"
-        puts "*-*-*     Here are our floral tea options:     *-*-*".magenta
-        scrape_floral_teas
-        list_tea_options
-        select_a_tea
-      when "exit"
-        puts "Thank you for visiting Tealish! We hope to see you again soon!"
-      when "menu"
-        menu
-      else
-        puts "Sorry, that option is not valid."
-        menu
+    input = gets.strip
+    case input
+    when "1"
+      puts "*-*-*     Here are our fruity tea options:     *-*-*".cyan
+      url = "https://tealish.com/collections/fruity"
+      if Tealish::Tea.all_fruity == []
+        Tealish::Scraper.scrape_teas(url, "fruity")
       end
-    end
-  end
-
-  def scrape_fruity_teas
-    url = "https://tealish.com/collections/fruity"
-    @teas = Tealish::Scraper.scrape_teas(url)
-  end
-
-  def scrape_spicy_teas
-    url = "https://tealish.com/collections/spicy"
-    @teas = Tealish::Scraper.scrape_teas(url)
-  end
-
-  def scrape_floral_teas
-    url = "https://tealish.com/collections/floral"
-    @teas = Tealish::Scraper.scrape_teas(url)
-  end
-
-  def list_tea_options
-    @teas.each.with_index(1) do |tea, index|
-      puts "#{index}. #{tea.name} - #{tea.type} - #{tea.price}"
-      puts "https://tealish.com#{tea.url}"
-    end
-  end
-
-  def select_a_tea
-    puts "\nEnter a number to select a tea:"
-    input = gets.strip.to_i
-    if input.between?(1, @teas.length)
-      selected_tea = @teas[input - 1]
-      puts "#{selected_tea.name} - #{selected_tea.type} - #{selected_tea.price}".green
-      puts "https://tealish.com#{selected_tea.url}"
-      #description
-      # scrape_tea_details(selected_tea)
-      # binding.pry
-      puts "\nDESCRIPTION:".green
-      puts"Drinking tea equals instant relaxation. Seriously, take a moment for yourself to make a cup, you’ll see how it relieves tension and refreshes your spirit. This wellness tea contains tulsi, an ancient herb that helps reduce stress and instil a sense of inner peace and calm. So drink up and feel your stress melt away."
-      #ingredients
-      puts "\nINGREDIENTS:".green
-      puts "tulsi herb, apple bits, pear bits, red currants, ginger, rooibos, cinnamon, sunflower blossoms, natural flavouring, pineapple bits."
-      menu
+      list_of_teas("fruity")
+      select_tea("fruity")
+    when "2"
+      puts "*-*-*     Here are our spicy tea options:     *-*-*".cyan
+      url = "https://tealish.com/collections/spicy"
+      if Tealish::Tea.all_spicy == []
+        Tealish::Scraper.scrape_teas(url, "spicy")
+      end
+      list_of_teas("spicy")
+      select_tea("spicy")
+    when "3"
+      puts "*-*-*     Here are our floral tea options:     *-*-*".cyan
+      url = "https://tealish.com/collections/floral"
+      if Tealish::Tea.all_floral == []
+        Tealish::Scraper.scrape_teas(url, "floral")
+      end
+      list_of_teas("floral")
+      select_tea("floral")
     else
-      puts "\nSorry, that option is not valid."
-      choose_tea
-      options
+      puts "Sorry, that is not valid number.".red
+      menu
     end
   end
 
-  def scrape_tea_details(selected_tea)
-    url = "https://tealish.com#{selected_tea.url}"
-    Tealish::Scraper.scrape_tea_details(selected_tea)
-    puts "hello"
-    binding.pry
+  def list_of_teas(flavor)
+    Tealish::Tea.send("all_#{flavor}").each.with_index(1) do |tea, index|
+      puts "\n#{index}. #{tea.name} - #{tea.type} - #{tea.price}".cyan
+      puts "#{tea.url}"
+    end
   end
+
+  def select_tea(flavor)
+    puts "\nEnter a number for more details:"
+    input = gets.strip.to_i
+    max_choice = Tealish::Tea.send("all_#{flavor}").length
+    if input.between?(1, max_choice)
+      selected_tea = Tealish::Tea.send("all_#{flavor}")[input - 1]
+      Tealish::Scraper.scrape_tea_details(selected_tea)
+      display_tea(selected_tea)
+      options_menu(flavor)
+    else
+      puts "\nSorry, that option is not valid.".red
+      options_menu(flavor)
+    end
+  end
+
+  def display_tea(tea)
+    Tealish::Scraper.scrape_tea_details(tea)
+    puts "#{tea.name} - #{tea.type} - #{tea.price}".green
+    puts "\nDESCRIPTION:".green
+    puts tea.description
+    puts "\nINGREDIENTS:".green
+    puts tea.ingredients
+  end
+
+  def options_menu(flavor)
+    puts "\nType" + " 'y' ".cyan + "to view another tea," + " 'n' ".cyan + "to exit, or" + " 'menu' ".cyan + 
+    "to return to our flavor menu:"
+    input = gets.strip.downcase
+    case input
+    when "y"
+      list_of_teas(flavor)
+      select_tea(flavor)
+    when 'n' 
+      puts "Thanks for visiting Tealish, we hope to see you again soon!"
+    when 'menu'
+      flavor_list
+      menu
+    else 
+      puts "Sorry, that option is not valid.".red
+      options_menu(flavor)
+    end
+  end
+
 end
