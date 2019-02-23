@@ -63,14 +63,15 @@ class Tealish::CLI
   def select_tea(flavor)
     puts "\nEnter a number for more details:"
     input = gets.strip.to_i
-    max_choice = Tealish::Tea.send("all_#{flavor}").length
-    if input.between?(1, max_choice)
+    max_options = Tealish::Tea.send("all_#{flavor}").length
+    if input.between?(1, max_options)
       selected_tea = Tealish::Tea.send("all_#{flavor}")[input - 1]
       Tealish::Scraper.scrape_tea_details(selected_tea)
       display_tea(selected_tea)
       options_menu(flavor)
     else
       puts "\nSorry, that option is not valid.".red
+      select_tea(flavor)
       options_menu(flavor)
     end
   end
