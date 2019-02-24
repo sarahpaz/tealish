@@ -1,7 +1,7 @@
 class Tealish::Scraper
 
-  def self.scrape_teas(url, flavor) # scrape all teas
-    site = Nokogiri::HTML(open(url))
+  def self.scrape_teas(flavor) # scrape all teas
+    site = Nokogiri::HTML(open("https://tealish.com/collections/#{flavor}"))
 
     site.css("figcaption").each do |tea|
       new_tea = Tealish::Tea.new(flavor)
