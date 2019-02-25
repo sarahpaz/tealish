@@ -64,7 +64,6 @@ class Tealish::CLI
     puts "\nEnter a number for more details:"
     input = gets.strip.to_i
     max_options = Tealish::Teas.find_by_flavor(@flavor).size 
-
     if input.between?(1, max_options)
       selected_tea = Tealish::Teas.find_by_flavor(@flavor)[input - 1] 
       display_tea(selected_tea)
