@@ -51,7 +51,7 @@ class Tealish::CLI
   end
 
   def list_of_teas(flavor)
-    Tealish::Tea.send("all_#{flavor}").each.with_index(1) do |tea, index| # fix
+    Tealish::Tea.send("all_#{flavor}").each.with_index(1) do |tea, index| 
       puts "\n#{index}. #{tea.name} - #{tea.type} - #{tea.price}".cyan
       puts "#{tea.url}"
     end
@@ -60,9 +60,9 @@ class Tealish::CLI
   def select_tea(flavor)
     puts "\nEnter a number for more details:"
     input = gets.strip.to_i
-    max_options = Tealish::Tea.send("all_#{flavor}").size #fix
+    max_options = Tealish::Tea.send("all_#{flavor}").size 
     if input.between?(1, max_options)
-      selected_tea = Tealish::Tea.send("all_#{flavor}")[input - 1] #fix
+      selected_tea = Tealish::Tea.send("all_#{flavor}")[input - 1] 
       Tealish::Scraper.scrape_tea_details(selected_tea)
       display_tea(selected_tea)
       options_menu(flavor)
