@@ -1,8 +1,6 @@
 # Tealish
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tealish`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to my Tealish CLI Gem. This CLI Gem interacts with the user by displaying 3 tea flavor options to choose from. Once a flavor is selected, a list of tea products are displayed. The user can then enter a product number to view more details (description, ingredients) of the selected tea.
 
 ## Installation
 
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type `ruby bin/tealish` into your terminal and follow the prompts displayed.
 
 ## Development
 
