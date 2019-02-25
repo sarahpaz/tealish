@@ -1,7 +1,7 @@
 class Tealish::Flavor
     attr_accessor :flavor_name
     attr_reader :teas 
-    
+
     @@all = []
 
     def initialize(flavor_name)

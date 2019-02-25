@@ -12,7 +12,7 @@ class Tealish::CLI
   end 
 
   def flavor_list
-    puts "Let's start by selecting a flavor collection."
+    puts "\nLet's start by selecting a flavor collection."
     puts "1. Fruity".cyan
     puts "2. Spicy".cyan
     puts "3. Floral".cyan
@@ -24,52 +24,55 @@ class Tealish::CLI
     input = gets.strip
     case input
     when "1"
-      puts "*-*-*     Here are our fruity tea options:     *-*-*".cyan
-      if Tealish::Tea.all_fruity == []
-        Tealish::Scraper.scrape_teas("fruity")
+      puts "*-*-*     Here are our Fruity tea options:     *-*-*".cyan
+      @flavor = "Fruity"
+      if Tealish::Teas.find_by_flavor(@flavor) == []
+      Tealish::Scraper.scrape_teas(@flavor) 
       end
-      list_of_teas("fruity")
-      select_tea("fruity")
+      list_of_teas
+      select_tea
     when "2"
-      puts "*-*-*     Here are our spicy tea options:     *-*-*".cyan
-      if Tealish::Tea.all_spicy == []
-        Tealish::Scraper.scrape_teas("spicy")
-      end
-      list_of_teas("spicy")
-      select_tea("spicy")
+      puts "*-*-*     Here are our Spicy tea options:     *-*-*".cyan
+      @flavor = "Spicy"
+      if Tealish::Teas.find_by_flavor(@flavor) == []
+        Tealish::Scraper.scrape_teas(@flavor) 
+        end
+      list_of_teas
+      select_tea
     when "3"
-      puts "*-*-*     Here are our floral tea options:     *-*-*".cyan
-      if Tealish::Tea.all_floral == []
-        Tealish::Scraper.scrape_teas("floral")
-      end
-      list_of_teas("floral")
-      select_tea("floral")
+      puts "*-*-*     Here are our Floral tea options:     *-*-*".cyan
+      @flavor = "Floral"
+      if Tealish::Teas.find_by_flavor(@flavor) == []
+        Tealish::Scraper.scrape_teas(@flavor) 
+        end
+      list_of_teas
+      select_tea
     else
       invalid_input
       menu
     end
   end
 
-  def list_of_teas(flavor)
-    Tealish::Tea.send("all_#{flavor}").each.with_index(1) do |tea, index| # fix
+  def list_of_teas
+    Tealish::Teas.find_by_flavor(@flavor).each.with_index(1) do |tea, index|
       puts "\n#{index}. #{tea.name} - #{tea.type} - #{tea.price}".cyan
       puts "#{tea.url}"
     end
   end
 
-  def select_tea(flavor)
+  def select_tea
     puts "\nEnter a number for more details:"
     input = gets.strip.to_i
-    max_options = Tealish::Tea.send("all_#{flavor}").size #fix
+    max_options = Tealish::Teas.find_by_flavor(@flavor).size 
+
     if input.between?(1, max_options)
-      selected_tea = Tealish::Tea.send("all_#{flavor}")[input - 1] #fix
-      Tealish::Scraper.scrape_tea_details(selected_tea)
+      selected_tea = Tealish::Teas.find_by_flavor(@flavor)[input - 1] 
       display_tea(selected_tea)
-      options_menu(flavor)
+      options_menu
     else
       invalid_input
-      select_tea(flavor)
-      options_menu(flavor)
+      select_tea
+      options_menu
     end
   end
 
@@ -84,22 +87,22 @@ class Tealish::CLI
     end
   end
 
-  def options_menu(flavor)
-    puts "\nType" + " 'y' ".cyan + "to view another tea," + " 'n' ".cyan + "to exit, or" + " 'menu' ".cyan + 
+  def options_menu
+    puts "\nType" + " 'list' ".cyan + "to view another tea," + " 'exit' ".cyan + "to exit, or" + " 'menu' ".cyan + 
     "to return to our flavor menu:"
     input = gets.strip.downcase
     case input
-    when "y"
-      list_of_teas(flavor)
-      select_tea(flavor)
-    when 'n' 
+    when "list"
+      list_of_teas
+      select_tea
+    when 'exit' 
       puts "Thanks for visiting Tealish, we hope to see you again soon!"
     when 'menu'
       flavor_list
       menu
     else 
       invalid_input
-      options_menu(flavor)
+      options_menu
     end
   end
 
