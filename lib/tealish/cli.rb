@@ -84,7 +84,7 @@ class Tealish::CLI
       puts "\nINGREDIENTS:".green
       puts tea.ingredients.capitalize
     end
-  endß
+  end
 
   def options_menu
     puts "\nType" + " 'list' ".cyan + "to view another tea," + " 'exit' ".cyan + "to exit, or" + " 'menu' ".cyan + 
