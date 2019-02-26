@@ -89,15 +89,15 @@ class Tealish::CLI
     puts "\nType" + " 'list' ".cyan + "to view another tea," + " 'exit' ".cyan + "to exit, or" + " 'menu' ".cyan + 
     "to return to our flavor menu:"
     input = gets.strip.downcase
-    case input
-    when "list"
+    if input == 'list'
       list_of_teas
       select_tea
-    when 'menu'
+    elsif input == 'menu'
       flavor_list
       menu
-    when 'exit' 
+    elsif input == 'exit' 
       puts "Thanks for visiting Tealish, we hope to see you again soon!"
+      exit(true)
     else 
       invalid_input
       options_menu
