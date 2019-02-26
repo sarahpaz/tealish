@@ -5,7 +5,7 @@ class Tealish::Flavor
     @@all = []
 
     def initialize(flavor_name)
-        @type = type
+        @flavor_name = flavor_name
         @teas = []
         @@all << self
     end
