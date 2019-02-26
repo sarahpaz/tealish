@@ -20,7 +20,6 @@ class Tealish::CLI
 
   def menu
     puts "\nEnter the number of the flavor collection you would like to view:"
-    input = nil
     input = gets.strip
     case input
     when "1"
@@ -94,11 +93,11 @@ class Tealish::CLI
     when "list"
       list_of_teas
       select_tea
-    when 'exit' 
-      puts "Thanks for visiting Tealish, we hope to see you again soon!"
     when 'menu'
       flavor_list
       menu
+    when 'exit' 
+      puts "Thanks for visiting Tealish, we hope to see you again soon!"
     else 
       invalid_input
       options_menu
