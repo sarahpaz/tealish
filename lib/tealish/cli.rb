@@ -26,31 +26,31 @@ class Tealish::CLI
     when "1"
       puts "*-*-*     Here are our Fruity tea options:     *-*-*".cyan
       @flavor = "Fruity"
-      if Tealish::Teas.find_by_flavor(@flavor) == []
-      Tealish::Scraper.scrape_teas(@flavor) 
-      end
+      scrape_tea_flavors
       list_of_teas
       select_tea
     when "2"
       puts "*-*-*     Here are our Spicy tea options:     *-*-*".cyan
       @flavor = "Spicy"
-      if Tealish::Teas.find_by_flavor(@flavor) == []
-        Tealish::Scraper.scrape_teas(@flavor) 
-        end
+      scrape_tea_flavors
       list_of_teas
       select_tea
     when "3"
       puts "*-*-*     Here are our Floral tea options:     *-*-*".cyan
       @flavor = "Floral"
-      if Tealish::Teas.find_by_flavor(@flavor) == []
-        Tealish::Scraper.scrape_teas(@flavor) 
-        end
+      scrape_tea_flavors
       list_of_teas
       select_tea
     else
       invalid_input
       menu
     end
+  end
+
+  def scrape_tea_flavors
+    if Tealish::Teas.find_by_flavor(@flavor) == []
+      Tealish::Scraper.scrape_teas(@flavor) 
+      end
   end
 
   def list_of_teas

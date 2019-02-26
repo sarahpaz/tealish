@@ -1,6 +1,6 @@
 # Tealish
 
-Welcome to my Tealish CLI Gem. This CLI Gem interacts with the user by displaying 3 tea flavor options to choose from. Once a flavor is selected, a list of tea products are displayed. The user can then enter a product number to view more details (description, ingredients) of the selected tea.
+Welcome to my Tealish CLI Gem. This CLI Gem interacts with the user by displaying 3 tea flavor options to choose from. Once a flavor is selected, a list of tea products are displayed. The user can then enter a product number to view more details (description, ingredients) of the selected tea. Enjoy!
 
 ## Installation
 
