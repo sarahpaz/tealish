@@ -76,13 +76,13 @@ class Tealish::CLI
 
   def display_tea(tea)
     puts "#{tea.name} - #{tea.type} - #{tea.price}".green
-    if tea.description || tea.ingredients == nil
+    if tea.description == nil || tea.ingredients == nil
       Tealish::Scraper.scrape_tea_details(tea)
+    end
       puts "\nDESCRIPTION:".green
       puts tea.description.capitalize
       puts "\nINGREDIENTS:".green
       puts tea.ingredients.capitalize
-    end
   end
 
   def options_menu
